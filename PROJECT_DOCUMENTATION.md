@@ -2,11 +2,11 @@
 
 ## 1. Project Overview
 
-This project is a high-performance, Modern Web3 Developer Portfolio built with **Next.js 14**, **TypeScript**, and **Tailwind CSS**. It features a "Deep Black" aesthetic with "Flame Orange" accents, utilizing heavy animation libraries like **Framer Motion** and **Three.js** to create an immersive user experience.
+This project is a high-performance, Modern Web3 Developer Portfolio built with **Next.js 14**, **TypeScript**, and **Tailwind CSS**. It features a "Deep Black" aesthetic with "Flame Orange" accents, utilizing heavy animation libraries like **Framer Motion**, **GSAP**, and **Three.js** to create an immersive, control-panel-like user experience.
 
-- **Theme:** Dark Mode / Web3 / Cyberpunk-lite
-- **Primary Colors:** Deep Black (`#0a0a0b`), Flame Orange (`#FE7F2D`)
-- **Core Layout:** Single-page scroll with distinct sections (Hero, About, Projects, Certifications, Contact).
+- **Theme:** Dark Mode / Web3 / Tactical Control Panel
+- **Primary Colors:** Deep Black (`#0a0a0b`), Flame Orange (`#FE7F2D`), Glass Accents
+- **Core Layout:** Single-page scroll with distinct sections (Hero, About, Expertise, Projects, Certifications, Contact).
 
 ## 2. Tech Stack
 
@@ -14,39 +14,37 @@ This project is a high-performance, Modern Web3 Developer Portfolio built with *
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS (v4 compatible imports)
 - **Animations:**
-  - `framer-motion` (General UI animations, transitions)
-  - `@react-three/fiber` & `@react-three/drei` (3D elements)
-  - `lucide-react` (Icons)
-- **Key Libraries:** `clsx`, `tailwind-merge` (Class management)
+  - `framer-motion` (UI interactions, page transitions)
+  - `gsap` & `ScrollTrigger` (Complex scroll-driven timelines)
+  - `@react-three/fiber` (Shader background)
+- **Icons:** `lucide-react`
 
 ## 3. Directory Structure
 
 ```
 d:\Portfolio Site\
-├── public/                 # Static assets (images, resumes)
-│   ├── background-glow.jpg # Global background gradient
-│   └── ...
 ├── src/
 │   ├── app/                # Next.js App Router root
-│   │   ├── globals.css     # Global styles, variables, Tailwind directives
-│   │   ├── layout.tsx      # Root layout (fonts, metadata, providers)
-│   │   └── page.tsx        # Main entry point (Landing Page)
+│   │   ├── globals.css     # Global styles, variables, scroll-behavior
+│   │   ├── layout.tsx      # Root layout (fonts, providers, smooth-cursor)
+│   │   └── page.tsx        # Main entry point (Landing Page compilation)
 │   │
-│   ├── components/         # React Components
-│   │   ├── about-section.tsx         # "Who I Am" section
+│   ├── components/         # Feature Components
+│   │   ├── about-section.tsx         # "Who I Am" (MinimalistHero + MagicText)
 │   │   ├── certifications-section.tsx# Certificates grid
 │   │   ├── contact-section.tsx       # Contact form & social links
-│   │   ├── featured-projects.tsx     # main Projects grid
-│   │   ├── footer-section.tsx        # Site footer
+│   │   ├── expertise-section.tsx     # Wrapper for Skills
+│   │   ├── featured-projects.tsx     # Main Projects grid
+│   │   ├── providers.tsx             # Theme/Context providers
 │   │   └── ui/                       # Reusable UI primitives & effects
-│   │       ├── animated-project-card.tsx # Stacking image card
-│   │       ├── animated-shader-hero.tsx  # Hero section with 3D/Canvas
+│   │       ├── animated-shader-hero.tsx  # Landing Hero (WebGL)
+│   │       ├── circle-menu.tsx          # Interactive Smart Nav (Click-outside, Auto-close)
+│   │       ├── scroll-driven-skills.tsx # "Technical Control Panel" (GSAP Pinning)
+│   │       ├── animated-project-card.tsx# Stacking image card
 │   │       ├── feature-section-with-hover-effects.tsx # Cert cards
 │   │       ├── magic-text.tsx           # Scroll-reveal text
-│   │       ├── particles.tsx            # Background particle system
 │   │       ├── spotlight-new.tsx        # Spotlight & Grid BG effects
-│   │       ├── tubelight-navbar.tsx     # Floating navigation
-│   │       └── ... (other visual effects)
+│   │       └── particles.tsx            # Background particle system
 │   │
 │   └── lib/
 │       └── utils.ts        # Helper functions (cn merger)
@@ -57,65 +55,66 @@ d:\Portfolio Site\
 
 ### **Layout Wrapper (`src/app/page.tsx`)**
 
-The master entry point that orchestrates the sections.
+The master orchestration file.
 
-- **Background Layer:** Contains `GridBackground`, `Spotlight`, `Particles`, and the `background-glow.jpg` overlay.
-- **Navigation:** Uses `NavBar` (Tubelight effect) with anchor links.
+- **Global Environment:** Implements a fixed "Background Glow" layer using radial gradients to create a continuous atmosphere.
+- **Navigation:** Uses `CircleMenu` for a minimalist, out-of-the-way navigation experience.
+- **Scroll Management:** Forces scroll-to-top on reload and handles smooth scrolling anchor links.
 
-### **Hero Section (`src/components/ui/animated-shader-hero.tsx`)**
+### **Hero Section (`animated-shader-hero.tsx`)**
 
-- **Headline:** "Building the Decentralized Future".
-- **Visuals:** Integrated shader/canvas animations.
-- **Actions:** Download Resume / Get In Touch.
+- **Visuals:** Custom WebGL shader implementation (`webgl2`).
+- **Interaction:** Mouse-reactive fluid simulation.
+- **Components:** `TypingAnimation` for dynamic headlines.
 
-### **Projects Section (`src/components/featured-projects.tsx`)**
+### **Expertise / Skills (`scroll-driven-skills.tsx`)**
 
-- **Grid:** 2x2 Layout (`grid-cols-1 md:grid-cols-2`).
-- **Card Component:** `AnimatedHikeCard` (`src/components/ui/animated-project-card.tsx`).
-  - _Features:_ Stacking image animation on hover (fans out images), fixed aspect-ratio, glassmorphism design.
+_Replaced previous Radial Gallery_
 
-### **Certifications Section (`src/components/certifications-section.tsx`)**
+- **Design:** "Glassmorphism Control Panel".
+- **Interaction:**
+  - **Scroll:** GSAP Pinning locks the card while the user scrolls through domains.
+  - **Click:** Sidebar items are actionable, instantly snapping the view to the selected skill category.
+  - **Visuals:** Active state indicators, deep shadows, and "soft light sweep" effects.
 
-- **Grid:** 2-column layout for wide cards.
-- **Component:** `FeaturesSectionWithHoverEffects`.
-  - _Features:_ Dynamic border drawing on hover, gradient overlays.
+### **Navigation (`circle-menu.tsx`)**
 
-### **About & Contact**
+_Replaced Tubelight Navbar_
 
-- **About:** Uses `MagicText` for scroll-triggered opacity reveal.
-- **Contact:** Standard form layout with social links.
+- **Behavior:** Fixed circular trigger. Expands on click.
+- **Smart Logic:** Auto-closes when clicking outside the menu area.
 
-## 5. Styling System (`globals.css`)
+## 5. Styling System
 
-The project uses custom CSS variables for easy theming.
+### **Global Variables (`globals.css`)**
 
 ```css
 :root {
   --flame-orange: #fe7f2d;
   --deep-black: #0a0a0b;
-  --card-bg: #1c1c1e;
-  /* ... */
+}
+
+section {
+  scroll-margin-top: 120px; /* Offset for anchor links */
 }
 ```
 
-- **Dark Mode Default:** The `.dark` class is applied by default or handled via `next-themes` (though hardcoded dark styles are prevalent).
-- **Typography:** Geist Sans / Geist Mono (configured in `layout.tsx`).
+### **Transitions**
 
-## 6. Development Workflow
+- **Seamless Fades:** Sections (especially Hero -> About) utilize gradient masks (`h-12`, `h-32`) to blend backgrounds and prevent harsh cut-offs.
 
-**Run Code:**
+## 6. Build Workflow
+
+**Run Development Server:**
 
 ```bash
 npm run dev
 ```
 
-**Build:**
+**Production Build:**
 
 ```bash
 npm run build
 ```
 
-## 7. Configuration Files
-
-- **tailind.config.ts**: Configures paths, theme extension (colors, animations), and plugins.
-- **tsconfig.json**: TypeScript path aliases (`@/*` -> `./src/*`).
+_Note: Build pipeline includes strict type checking and unused code elimination._

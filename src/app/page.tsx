@@ -3,7 +3,7 @@
 import React from 'react';
 
 
-import { Home, User, Briefcase, Mail, Award, Layers, Menu, X } from 'lucide-react'
+import { Home, User, Briefcase, Mail, Layers } from 'lucide-react'
 import { CircleMenu } from "@/components/ui/circle-menu" // Added
 import Hero from "@/components/ui/animated-shader-hero"
 import AboutSection from "@/components/about-section"
