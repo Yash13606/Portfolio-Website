@@ -30,7 +30,8 @@ function splitText(text: string) {
 const HoverSliderContext = React.createContext<
   HoverSliderContextValue | undefined
 >(undefined)
-function useHoverSliderContext() {
+
+export function useHoverSliderContext() {
   const context = React.useContext(HoverSliderContext)
   if (context === undefined) {
     throw new Error(
@@ -142,7 +143,7 @@ export const HoverSliderImageWrap = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "grid  overflow-hidden [&>*]:col-start-1 [&>*]:col-end-1 [&>*]:row-start-1 [&>*]:row-end-1 [&>*]:size-full",
+        "relative overflow-hidden",
         className
       )}
       {...props}
@@ -169,18 +170,26 @@ export const HoverSliderImage = React.forwardRef<
 })
 HoverSliderImage.displayName = "HoverSliderImage"
 
+
 // New component for skill content instead of images
 export const HoverSliderContent = React.forwardRef<
   HTMLDivElement,
   HTMLMotionProps<"div"> & { index: number }
 >(({ index, children, className, ...props }, ref) => {
   const { activeSlide } = useHoverSliderContext()
+  const isActive = activeSlide === index
+  
+  // Only render if active - prevents multiple cards from existing simultaneously
+  if (!isActive) return null
+  
   return (
     <motion.div
+      key={index}
       className={cn("inline-block align-middle", className)}
-      transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.8 }}
-      variants={clipPathVariants}
-      animate={activeSlide === index ? "visible" : "hidden"}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
       ref={ref}
       {...props}
     >

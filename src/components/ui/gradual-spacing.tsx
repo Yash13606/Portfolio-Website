@@ -23,14 +23,15 @@ function GradualSpacing({
   className,
 }: GradualSpacingProps) {
   return (
-    <div className="flex justify-center space-x-1">
+    <div className="flex justify-center space-x-1 flex-wrap">
       <AnimatePresence>
         {text.split("").map((char, i) => (
           <motion.h1
             key={i}
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
             exit="hidden"
+            viewport={{ once: true, amount: 0.3 }}
             variants={framerProps}
             transition={{ duration, delay: i * delayMultiple }}
             className={cn("drop-shadow-sm ", className)}

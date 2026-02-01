@@ -129,20 +129,20 @@ function Scene() {
     switch (theme) {
       case 'dark':
         return {
-          dotColor: '#FE7F2D',
-          bgColor: '#0a0a0b',
+          dotColor: 'var(--flame-orange)',
+          bgColor: 'var(--deep-black)',
           dotOpacity: 0.2
         }
       case 'light':
         return {
-          dotColor: '#FE7F2D',
+          dotColor: 'var(--flame-orange)',
           bgColor: '#F4F5F5',
           dotOpacity: 0.15
         }
       default:
         return {
-          dotColor: '#FE7F2D',
-          bgColor: '#0a0a0b',
+          dotColor: 'var(--flame-orange)',
+          bgColor: 'var(--deep-black)',
           dotOpacity: 0.2
         }
     }

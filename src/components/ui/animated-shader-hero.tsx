@@ -184,7 +184,7 @@ void main(){gl_Position=position;}`;
       
       if (!program || gl.getProgramParameter(program, gl.DELETE_STATUS)) return;
 
-      gl.clearColor(0, 0, 0, 1);
+      gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.useProgram(program);
       gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
@@ -342,7 +342,7 @@ const Hero: React.FC<HeroProps> = ({
   const canvasRef = useShaderBackground();
 
   return (
-    <div className={`relative w-full h-screen overflow-hidden bg-black ${className}`}>
+    <div className={`relative w-full h-screen overflow-hidden bg-transparent ${className}`}>
       <style jsx>{`
         @keyframes fade-in-down {
           from {
@@ -406,14 +406,14 @@ const Hero: React.FC<HeroProps> = ({
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full object-contain touch-none"
-        style={{ background: 'black' }}
+        style={{ background: 'transparent' }}
       />
       
       {/* Smooth gradient transition to About section */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none z-20"
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-20"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(10, 10, 11, 0.3) 40%, rgba(10, 10, 11, 0.7) 70%, #0a0a0b 100%)'
+          background: 'linear-gradient(to bottom, transparent, #0a0a0b)'
         }}
       />
       
@@ -422,17 +422,17 @@ const Hero: React.FC<HeroProps> = ({
         {/* Trust Badge */}
         {trustBadge && (
           <div className="mb-8 animate-fade-in-down">
-            <div className="flex items-center gap-2 px-6 py-3 bg-orange-500/10 backdrop-blur-md border border-orange-300/30 rounded-full text-sm">
+            <div className="flex items-center gap-2 px-6 py-3 bg-flame-orange/10 backdrop-blur-md border border-flame-orange/30 rounded-full text-sm">
               {trustBadge.icons && (
                 <div className="flex">
                   {trustBadge.icons.map((icon, index) => (
-                    <span key={index} className={`text-${index === 0 ? 'yellow' : index === 1 ? 'orange' : 'amber'}-300`}>
+                    <span key={index} className="text-flame-orange">
                       {icon}
                     </span>
                   ))}
                 </div>
               )}
-              <span className="text-orange-100">{trustBadge.text}</span>
+              <span className="text-white">{trustBadge.text}</span>
             </div>
           </div>
         )}
@@ -440,19 +440,19 @@ const Hero: React.FC<HeroProps> = ({
         <div className="text-center space-y-6 max-w-5xl mx-auto px-4">
           {/* Main Heading with Animation */}
           <div className="space-y-2">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-[0_0_30px_rgba(255,215,0,0.5)] animate-fade-in-up animation-delay-200">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-[0_0_30px_rgba(254,127,45,0.3)] animate-fade-in-up animation-delay-200">
               {headline.line1}
             </h1>
             <TypingAnimation
               text={headline.line2}
               duration={100}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent leading-tight"
+              className="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-amber-200 via-flame-orange to-bright-orange bg-clip-text text-transparent leading-tight"
             />
           </div>
           
           {/* Subtitle with Animation */}
           <div className="max-w-3xl mx-auto animate-fade-in-up animation-delay-600">
-            <p className="text-lg md:text-xl lg:text-2xl text-orange-50 font-light leading-relaxed">
+            <p className="text-lg md:text-xl lg:text-2xl text-text-light font-light leading-relaxed">
               {subtitle}
             </p>
           </div>
@@ -463,7 +463,7 @@ const Hero: React.FC<HeroProps> = ({
               {techStack.map((tech, index) => (
                 <div 
                   key={index}
-                  className="flex items-center gap-2 px-4 py-2 bg-orange-500/10 backdrop-blur-sm border border-orange-300/20 rounded-full text-sm hover:bg-orange-500/20 transition-all duration-300"
+                  className="flex items-center gap-2 px-4 py-2 bg-flame-orange/10 backdrop-blur-sm border border-flame-orange/20 rounded-full text-sm hover:bg-flame-orange/20 transition-all duration-300"
                 >
                   <span className="text-xl">{tech.icon}</span>
                   <span className="text-orange-100 font-medium">{tech.name}</span>
@@ -478,7 +478,7 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.primary && (
                 <button 
                   onClick={buttons.primary.onClick}
-                  className="px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25"
+                  className="px-8 py-4 bg-flame-orange hover:bg-orange-hover text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[0_12px_40px_rgba(254,127,45,0.15)]"
                 >
                   {buttons.primary.text}
                 </button>
@@ -486,7 +486,7 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.secondary && (
                 <button 
                   onClick={buttons.secondary.onClick}
-                  className="px-8 py-4 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
+                  className="px-8 py-4 bg-flame-orange/10 hover:bg-flame-orange/20 border border-flame-orange/30 hover:border-flame-orange/50 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                 >
                   {buttons.secondary.text}
                 </button>
@@ -494,7 +494,7 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.tertiary && (
                 <button 
                   onClick={buttons.tertiary.onClick}
-                  className="px-8 py-4 bg-transparent hover:bg-orange-500/10 border border-orange-300/20 hover:border-orange-300/40 text-orange-200 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
+                  className="px-8 py-4 bg-transparent hover:bg-flame-orange/10 border border-flame-orange/20 hover:border-flame-orange/40 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                 >
                   {buttons.tertiary.text}
                 </button>
