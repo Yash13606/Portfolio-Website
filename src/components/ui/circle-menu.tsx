@@ -54,9 +54,10 @@ interface MenuItemProps {
   index: number;
   totalItems: number;
   isOpen: boolean;
+  onItemClick: () => void;
 }
 
-const MenuItem = ({ icon, label, href, index, totalItems, isOpen }: MenuItemProps) => {
+const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onItemClick }: MenuItemProps) => {
   // Pass radius. containerSize is diameter, so radius is half? 
   // The provided code used containerSize/2. Let's stick to that but maybe increase it slightly for the quarter feel if needed.
   const { x, y } = pointOnCircle(index, totalItems, CONSTANTS.containerSize / 1.5); // Push them out a bit more
@@ -72,6 +73,7 @@ const MenuItem = ({ icon, label, href, index, totalItems, isOpen }: MenuItemProp
           e.preventDefault();
           document.getElementById(href.substring(1))?.scrollIntoView({ behavior: 'smooth' });
         }
+        onItemClick();
       }}
     >
       <motion.button
@@ -234,6 +236,7 @@ const CircleMenu = ({
                   index={index}
                   totalItems={items.length}
                   isOpen={isOpen}
+                  onItemClick={() => setIsOpen(false)}
                 />
                </div>
             );

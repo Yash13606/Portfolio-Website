@@ -97,19 +97,7 @@ export default function AboutSection() {
 
 
 
-      <style jsx>{`
-        .animate-in {
-          opacity: 1 !important;
-          transform: translateY(0) translateX(0) !important;
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-          .animate-on-scroll {
-            opacity: 1;
-            transform: none;
-          }
-        }
-      `}</style>
+
     </section>
   );
 }
