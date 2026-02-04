@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import { Download, Linkedin } from 'lucide-react';
 
 const DigitalSerenity = () => {
   const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
@@ -85,6 +86,17 @@ const DigitalSerenity = () => {
       <style>{pageStyles}</style>
       <div className="min-h-screen bg-black text-zinc-100 font-primary overflow-hidden relative border-none">
         
+        {/* Top Right LinkedIn Button */}
+        <a 
+          href="https://www.linkedin.com/in/yashzzdev1306" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="absolute top-6 right-6 z-50 p-3 rounded-full bg-zinc-900/30 border border-zinc-800 text-zinc-400 hover:text-[#0077b5] hover:border-[#0077b5]/50 hover:bg-zinc-900/80 transition-all duration-300 backdrop-blur-sm group"
+          aria-label="LinkedIn"
+        >
+          <Linkedin size={20} className="group-hover:scale-110 transition-transform duration-300" />
+        </a>
+
         {/* Responsive Main Content Padding */}
         <div className="relative z-10 min-h-screen flex flex-col justify-between items-center px-6 py-10 sm:px-8 sm:py-12 md:px-16 md:py-20">
           <div className="text-center">
@@ -133,7 +145,18 @@ const DigitalSerenity = () => {
               <span className="word-animate" data-delay="4400">Auditor.</span>
               <span className="word-animate" data-delay="4600">Architect.</span>
             </h2>
-            <div className="mt-6 flex justify-center space-x-4 opacity-0" style={{ animation: 'word-appear 1s ease-out forwards', animationDelay: '5s' }}>
+            
+            <a 
+              href="/resume.pdf" 
+              download="Yash_Resume.pdf"
+              className="mt-8 inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-zinc-800 bg-zinc-900/30 text-zinc-400 text-sm tracking-wide hover:bg-zinc-800 hover:text-white hover:border-zinc-600 transition-all duration-300 opacity-0 group backdrop-blur-sm"
+              style={{ animation: 'word-appear 1s ease-out forwards', animationDelay: '4.8s' }}
+            >
+              <Download size={16} className="group-hover:scale-110 transition-transform duration-300" />
+              <span>Download Resume</span>
+            </a>
+
+            <div className="mt-8 flex justify-center space-x-4 opacity-0" style={{ animation: 'word-appear 1s ease-out forwards', animationDelay: '5s' }}>
               <div className="w-1 h-1 bg-zinc-600 rounded-full opacity-40"></div>
               <div className="w-1 h-1 bg-zinc-600 rounded-full opacity-60"></div>
               <div className="w-1 h-1 bg-zinc-600 rounded-full opacity-40"></div>
